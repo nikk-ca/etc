@@ -26,6 +26,7 @@ export const nmap = (a, b, c, d, x) => (x - a) * ((d - c) / (b - a)) + c;
 export const mod = (x, m) => (x % m + m) % m;
 export const fract = (x) => x - Math.floor(x);
 export const smoothstep = (x) => x * x * (3 - 2 * x);
+export const smootherstep = (x) => x * x * x * (x * (x * 6 - 15) + 10);
 export const bias = (a, x) => (a * x) / (2 * a * x - a - x + 1);
 export const gain = (a, x) => x < 0.5 ? bias(1 - a, 2 * x) / 2 : 1 - bias(1 - a, 2 - 2 * x) / 2;
 
