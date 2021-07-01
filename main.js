@@ -74,3 +74,8 @@ export const pull = (a, i) => {
 // async
 export const timeout = (t) => new Promise(r => setTimeout(r, t));
 export const nextFrame = () => new Promise(requestAnimationFrame);
+
+// other
+export const assert = (t, msg) => {
+	if (!t) throw new Error(msg);
+}
