@@ -31,6 +31,10 @@ export const bias = (a, x) => (a * x) / (2 * a * x - a - x + 1);
 export const gain = (a, x) => x < 0.5 ? bias(1 - a, 2 * x) / 2 : 1 - bias(1 - a, 2 - 2 * x) / 2;
 export const sigmoid = (x) => 1 / (1 + Math.exp(-x));
 
+export const cot = (x) => 1 / Math.tan(x);
+export const sec = (x) => 1 / Math.cos(x);
+export const csc = (x) => 1 / Math.sin(x);
+
 // type
 export const isNil = v => v == null;
 export const isObject = v => v && typeof v === 'object';
