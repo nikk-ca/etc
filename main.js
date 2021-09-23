@@ -55,8 +55,8 @@ export const randof = (a) => a[Math.floor(Math.random() * a.length)];
 
 // array
 export const last = (a) => a[a.length-1];
-export const fill = (n, f) => {
-	const a = new Array(n);
+export const fill = (n, f, c = Array) => {
+	const a = new c(n);
 	for (let i=0; i<n; i++) a[i] = f(i,n);
 	return a;
 }
