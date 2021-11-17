@@ -52,6 +52,7 @@ export const chance = (p=0.5) => Math.random() < p;
 export const rand = (a=1, b=0) => Math.random() * (b-a) + a;
 export const randi = (a=1, b=0) => Math.floor(Math.random() * (b-a) + a);
 export const randof = (a) => a[Math.floor(Math.random() * a.length)];
+export const randn = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(PI2 * Math.random());
 
 // array
 export const last = (a) => a[a.length-1];
