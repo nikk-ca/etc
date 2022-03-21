@@ -10,7 +10,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "eqeqeq": [ "warn", "always", { "null": "ignore" } ],
+        "eqeqeq": ["warn", "always", { "null": "ignore" }],
         "no-lonely-if": "warn",
         "sort-imports": "warn",
         "brace-style": ["warn", "1tbs"],
@@ -19,9 +19,9 @@
         "no-trailing-spaces": "warn",
         "space-infix-ops": "warn",
 
-        "indent": [ "warn", "tab" ],
-        "linebreak-style": [ "warn", "unix" ],
-        "quotes": [ "warn", "double" ],
-        "semi": [ "warn", "always" ]
+        "indent": ["warn", "tab"],
+        "linebreak-style": ["warn", "unix"],
+        "quotes": ["warn", "double"],
+        "semi": ["warn", "always"]
     }
 }
