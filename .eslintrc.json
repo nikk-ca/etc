@@ -12,7 +12,6 @@
     "rules": {
         "eqeqeq": ["warn", "always", { "null": "ignore" }],
         "no-lonely-if": "warn",
-        "sort-imports": "warn",
         "brace-style": ["warn", "1tbs"],
         "comma-dangle": ["warn", "always-multiline"],
         "eol-last": ["warn", "always"],
