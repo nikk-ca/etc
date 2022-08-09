@@ -1,9 +1,8 @@
-const CHAR64 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
-
 // const
 export const DEG = Math.PI / 180;
 export const PI2 = Math.PI * 2;
 export const EPS = 1e-12;
+export const CHAR64 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
 
 // func
 export const noop = () => {};
