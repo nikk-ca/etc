@@ -82,3 +82,14 @@ export const timeout = (t) => new Promise(r => setTimeout(r, t));
 export const assert = (t, msg) => {
 	if (!t) throw new Error(msg);
 };
+
+
+// iterable
+export function* chunk(a, n) {
+	let chunk = [];
+	for (const v of a) if (chunk.push(v) >= n) {
+		yield chunk;
+		chunk = [];
+	}
+	if (chunk.length) yield chunk;
+}
