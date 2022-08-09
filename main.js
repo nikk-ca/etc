@@ -44,6 +44,9 @@ export const id = () => {
 	while (str.length < 8) str += CHAR64[Math.random() * 64 | 0];
 	return str;
 };
+export const simplify = (s) => {
+	return s.normalize("NFKD").replace(/\p{M}/gu, "");
+};
 
 // rand
 export const chance = (p = 0.5) => Math.random() < p;
