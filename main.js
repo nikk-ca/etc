@@ -12,11 +12,13 @@ export const repeat = (n, f) => {
 };
 
 // bit
-export const rotl = (x, s) => (x << s) | (x >>> 32 - s);
-export const rotr = (x, s) => (x >>> s) | (x << 32 - s);
+export const rotl = (x, s) => ((x << s) | (x >>> 32 - s)) >>> 0;
+export const rotr = (x, s) => ((x >>> s) | (x << 32 - s)) >>> 0;
 
 // num
 export const aeq = (a, b) => typeof a === "number" && typeof b === "number" && Math.abs(a - b) <= EPS;
+
+export const fsdma = (f, x, m = 1, a = 0) => f((x - a) / m) * m + a;
 
 export const clamp = (min, max, val) => val < min ? min : val > max ? max : val;
 export const lerp = (a, b, x) => x * (b - a) + a;
@@ -29,6 +31,13 @@ export const smootherstep = (x) => x * x * x * (x * (x * 6 - 15) + 10);
 export const bias = (a, x) => (a * x) / (2 * a * x - a - x + 1);
 export const gain = (a, x) => x < 0.5 ? bias(1 - a, 2 * x) / 2 : 1 - bias(1 - a, 2 - 2 * x) / 2;
 export const tri = (x) => 1 - Math.abs(2 * fract(0.5 * x) - 1);
+
+export const floor = fsdma.bind(null, Math.floor);
+export const round = fsdma.bind(null, Math.round);
+export const ceil = fsdma.bind(null, Math.ceil);
+
+export const b2u = (x) => x * 0.5 + 0.5;
+export const u2b = (x) => x * 2 - 1;
 
 export const cot = (x) => 1 / Math.tan(x);
 export const sec = (x) => 1 / Math.cos(x);
@@ -43,6 +52,11 @@ export const id = () => {
 	let str = "";
 	while (str.length < 8) str += CHAR64[Math.random() * 64 | 0];
 	return str;
+};
+export const hash = (str) => {
+	let hash = 0;
+	for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i) >>> 0;
+	return hash;
 };
 
 // rand
@@ -75,6 +89,31 @@ export const pull = (a, i) => {
 	return v;
 };
 
+export const mapTo = (a, b, f) => {
+	const len = Math.min(a.length, b.length);
+	for (let i = 0; i < len; i++) b[i] = f(a[i], i);
+	return b;
+};
+
+export const minBy = (a, f) => {
+	let m = Infinity;
+	let v;
+	for (const x of a) {
+		const n = f(x);
+		if (n < m) m = n, v = x;
+	}
+	return v;
+};
+export const maxBy = (a, f) => {
+	let m = -Infinity;
+	let v;
+	for (const x of a) {
+		const n = f(x);
+		if (n > m) m = n, v = x;
+	}
+	return v;
+};
+
 // async
 export const timeout = (t) => new Promise(r => setTimeout(r, t));
 
@@ -82,7 +121,7 @@ export const timeout = (t) => new Promise(r => setTimeout(r, t));
 export const assert = (t, msg) => {
 	if (!t) throw new Error(msg);
 };
-
+export const xor = (a, b) => a ? !b : !!b;
 
 // iterable
 export function* chunk(a, n) {
