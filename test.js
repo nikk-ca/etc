@@ -6,7 +6,6 @@ test("chunk", t => {
 		[..._.chunk([], 1)],
 		[],
 	);
-
 	t.deepEqual(
 		[..._.chunk([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3)],
 		[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]],
@@ -14,12 +13,18 @@ test("chunk", t => {
 });
 
 test("rotl", t => {
-	t.is(_.rotl(0xffff_ffff, 0), 0xffff_ffff);
+	t.is(_.rotl(0xFFFF_FFFF, 0), 0xFFFF_FFFF);
 	t.is(_.rotl(0x12345678, 12), 0x45678123);
 });
 test("rotr", t => {
-	t.is(_.rotr(0xffff_ffff, 0), 0xffff_ffff);
+	t.is(_.rotr(0xFFFF_FFFF, 0), 0xFFFF_FFFF);
 	t.is(_.rotr(0x12345678, 12), 0x67812345);
+});
+test("popcnt", t => {
+	t.is(_.popcnt(0), 0);
+	t.is(_.popcnt(1), 1);
+	t.is(_.popcnt(0xFFFF_FFFF), 32);
+	t.is(_.popcnt(0x12345678), 13);
 });
 
 test("xor", t => {

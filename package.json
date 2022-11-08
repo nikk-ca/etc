@@ -7,6 +7,7 @@
 		"eslint": "^8.11.0"
 	},
 	"scripts": {
-		"test": "ava"
+		"test": "ava",
+		"fix": "eslint . --fix"
 	}
 }

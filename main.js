@@ -12,15 +12,21 @@ export const repeat = (n, f) => {
 };
 
 // bit
-export const rotl = (x, s) => ((x << s) | (x >>> 32 - s)) >>> 0;
-export const rotr = (x, s) => ((x >>> s) | (x << 32 - s)) >>> 0;
+export const rotl = (x, s) => ((x << s) | (x >> 32 - s)) >>> 0;
+export const rotr = (x, s) => ((x >> s) | (x << 32 - s)) >>> 0;
+export const popcnt = x => (
+	x -= ((x >> 1) & 0x55555555),
+	x = (x & 0x33333333) + ((x >> 2) & 0x33333333),
+	((x + (x >> 4) & 0xF0F0F0F) * 0x1010101) >> 24
+);
 
 // num
 export const aeq = (a, b) => typeof a === "number" && typeof b === "number" && Math.abs(a - b) <= EPS;
+export const inRange = (x, min, max) => x >= min && x < max;
 
 export const fsdma = (f, x, m = 1, a = 0) => f((x - a) / m) * m + a;
 
-export const clamp = (min, max, val) => val < min ? min : val > max ? max : val;
+export const clamp = (x, min, max) => x < min ? min : x > max ? max : x;
 export const lerp = (a, b, x) => x * (b - a) + a;
 export const unlerp = (a, b, x) => (x - a) / (b - a);
 export const nmap = (a, b, c, d, x) => (x - a) * ((d - c) / (b - a)) + c;
@@ -28,8 +34,8 @@ export const mod = (x, m) => (x % m + m) % m;
 export const fract = (x) => x - Math.floor(x);
 export const smoothstep = (x) => x * x * (3 - 2 * x);
 export const smootherstep = (x) => x * x * x * (x * (x * 6 - 15) + 10);
-export const bias = (a, x) => (a * x) / (2 * a * x - a - x + 1);
-export const gain = (a, x) => x < 0.5 ? bias(1 - a, 2 * x) / 2 : 1 - bias(1 - a, 2 - 2 * x) / 2;
+export const bias = (x, a) => (a * x) / (2 * a * x - a - x + 1);
+export const gain = (x, a) => x < 0.5 ? bias(1 - a, 2 * x) / 2 : 1 - bias(1 - a, 2 - 2 * x) / 2;
 export const tri = (x) => 1 - Math.abs(2 * fract(0.5 * x) - 1);
 
 export const floor = fsdma.bind(null, Math.floor);
@@ -46,6 +52,7 @@ export const csc = (x) => 1 / Math.sin(x);
 // type
 export const isNil = v => v == null;
 export const isObject = v => v && typeof v === "object";
+export const isNumber = v => typeof v === "number" && !Number.isNaN(v);
 
 // string
 export const id = () => {
@@ -124,6 +131,9 @@ export const assert = (t, msg) => {
 export const xor = (a, b) => a ? !b : !!b;
 
 // iterable
+export function* count(n) {
+	for (let i = 0; i < n; i++) yield i;
+}
 export function* chunk(a, n) {
 	let chunk = [];
 	for (const v of a) if (chunk.push(v) >= n) {
@@ -131,4 +141,7 @@ export function* chunk(a, n) {
 		chunk = [];
 	}
 	if (chunk.length) yield chunk;
+}
+export function* map(a, f) {
+	for (const v of a) yield f(v);
 }
