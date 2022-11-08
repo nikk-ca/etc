@@ -1,26 +1,30 @@
-// const
 export const DEG = Math.PI / 180;
 export const PI2 = Math.PI * 2;
 export const EPS = 1e-12;
 export const CHAR64 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
 
-// func
+
+/** Does nothing, returns nothing. */
 export const noop = () => {};
+
 export const identity = (x) => x;
+
+/** Calls `f` a total of `n` times. */
 export const repeat = (n, f) => {
 	for (let i = 0; i < n; i++) f(i);
 };
 
-// bit
 export const rotl = (x, s) => ((x << s) | (x >> 32 - s)) >>> 0;
 export const rotr = (x, s) => ((x >> s) | (x << 32 - s)) >>> 0;
+
+/** Population count. Returns the number of `1`s in the binary representation of `x`. */
 export const popcnt = x => (
 	x -= ((x >> 1) & 0x55555555),
 	x = (x & 0x33333333) + ((x >> 2) & 0x33333333),
 	((x + (x >> 4) & 0xF0F0F0F) * 0x1010101) >> 24
 );
 
-// num
+/** Approximately equal. */
 export const aeq = (a, b) => typeof a === "number" && typeof b === "number" && Math.abs(a - b) <= EPS;
 export const inRange = (x, min, max) => x >= min && x < max;
 
@@ -49,12 +53,12 @@ export const cot = (x) => 1 / Math.tan(x);
 export const sec = (x) => 1 / Math.cos(x);
 export const csc = (x) => 1 / Math.sin(x);
 
-// type
 export const isNil = v => v == null;
 export const isObject = v => v && typeof v === "object";
+
+/** True if `v` is a number and isn't `NaN`. */
 export const isNumber = v => typeof v === "number" && !Number.isNaN(v);
 
-// string
 export const id = () => {
 	let str = "";
 	while (str.length < 8) str += CHAR64[Math.random() * 64 | 0];
@@ -66,15 +70,14 @@ export const hash = (str) => {
 	return hash;
 };
 
-// rand
 export const chance = (p = 0.5) => Math.random() < p;
 export const rand = (a = 1, b = 0) => Math.random() * (b - a) + a;
 export const randi = (a = 1, b = 0) => Math.floor(Math.random() * (b - a) + a);
 export const randof = (a) => a[Math.floor(Math.random() * a.length)];
 export const randn = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(PI2 * Math.random());
 
-// array
 export const last = (a) => a[a.length - 1];
+
 export const fill = (n, f, c = Array) => {
 	const a = new c(n);
 	for (let i = 0; i < n; i++) a[i] = f(i,n);
@@ -85,10 +88,14 @@ export const swap = (a, i, j) => {
 	a[i] = a[j];
 	a[j] = v;
 };
+
+/** The Fisher-Yates shuffle. */
 export const shuffle = (a) => {
 	for (let i = a.length - 1; i > 0; i--) swap(a, i, Math.floor(Math.random() * (i + 1)));
 	return a;
 };
+
+/** Removes and returns the value at `a[i]`. Faster than `Array.prototype.splice`, but messes up the order of the elements. */
 export const pull = (a, i) => {
 	const v = a[i];
 	a[i] = a[a.length - 1];
@@ -121,16 +128,13 @@ export const maxBy = (a, f) => {
 	return v;
 };
 
-// async
 export const timeout = (t) => new Promise(r => setTimeout(r, t));
 
-// other
 export const assert = (t, msg) => {
 	if (!t) throw new Error(msg);
 };
 export const xor = (a, b) => a ? !b : !!b;
 
-// iterable
 export function* count(n) {
 	for (let i = 0; i < n; i++) yield i;
 }
