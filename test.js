@@ -13,17 +13,17 @@ test("chunk", t => {
 });
 
 test("rotl", t => {
-	t.is(_.rotl(0xFFFF_FFFF, 0), 0xFFFF_FFFF);
+	t.is(_.rotl(0xFFFFFFFF, 0), 0xFFFFFFFF);
 	t.is(_.rotl(0x12345678, 12), 0x45678123);
 });
 test("rotr", t => {
-	t.is(_.rotr(0xFFFF_FFFF, 0), 0xFFFF_FFFF);
+	t.is(_.rotr(0xFFFFFFFF, 0), 0xFFFFFFFF);
 	t.is(_.rotr(0x12345678, 12), 0x67812345);
 });
 test("popcnt", t => {
 	t.is(_.popcnt(0), 0);
 	t.is(_.popcnt(1), 1);
-	t.is(_.popcnt(0xFFFF_FFFF), 32);
+	t.is(_.popcnt(0xFFFFFFFF), 32);
 	t.is(_.popcnt(0x12345678), 13);
 });
 
