@@ -15,10 +15,12 @@ test("chunk", t => {
 test("rotl", t => {
 	t.is(_.rotl(0xFFFFFFFF, 0), 0xFFFFFFFF);
 	t.is(_.rotl(0x12345678, 12), 0x45678123);
+	t.is(_.rotl(0b00010001000100010001000100010001, 1), 0b10001000100010001000100010001000)
 });
 test("rotr", t => {
 	t.is(_.rotr(0xFFFFFFFF, 0), 0xFFFFFFFF);
 	t.is(_.rotr(0x12345678, 12), 0x67812345);
+	t.is(_.rotr(0b00010001000100010001000100010001, 1), 0b00100010001000100010001000100010)
 });
 test("popcnt", t => {
 	t.is(_.popcnt(0), 0);

@@ -14,8 +14,8 @@ export const repeat = (n, f) => {
 	for (let i = 0; i < n; i++) f(i);
 };
 
-export const rotl = (x, s) => ((x << s) | (x >> 32 - s)) >>> 0;
-export const rotr = (x, s) => ((x >> s) | (x << 32 - s)) >>> 0;
+export const rotl = (x, s) => (x << s | x >>> 32 - s) >>> 0;
+export const rotr = (x, s) => (x >>> s | x << 32 - s) >>> 0;
 
 /** Population count. Returns the number of `1`s in the binary representation of `x`. */
 export const popcnt = x => (
