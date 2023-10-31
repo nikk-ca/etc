@@ -135,8 +135,30 @@ export const assert = (t, msg) => {
 };
 export const xor = (a, b) => a ? !b : !!b;
 
-export function* count(n) {
-	for (let i = 0; i < n; i++) yield i;
+export function* count(...args) {
+	let i = 0, end, step = 1, incl = false;
+	switch (args.length) {
+		case 1:
+			[end] = args; break;
+		case 2: typeof args[1] === "number"
+			? [i, end] = args
+			: [end, incl] = args; break;
+		case 3: typeof args[2] === "number"
+			? [i, end, step] = args
+			: [i, end, incl] = args; break;
+		case 4:
+			[i, end, step, incl] = args; break;
+		default:
+			throw new Error('bad args');
+	}
+	step = Math.abs(step) * Math.sign(end - i);
+	if (i < end) {
+		if (incl) do yield i; while ((i += step) <= end);
+		else      do yield i; while ((i += step) < end);
+	} else {
+		if (incl) do yield i; while ((i += step) >= end);
+		else      do yield i; while ((i += step) > end);
+	}
 }
 export function* chunk(a, n) {
 	let chunk = [];
