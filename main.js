@@ -80,7 +80,7 @@ export const last = (a) => a[a.length - 1];
 
 export const fill = (n, f, c = Array) => {
 	const a = new c(n);
-	for (let i = 0; i < n; i++) a[i] = f(i,n);
+	for (let i = 0; i < n; i++) a[i] = f(i, n);
 	return a;
 };
 export const swap = (a, i, j) => {
@@ -149,7 +149,7 @@ export function* count(...args) {
 		case 4:
 			[i, end, step, incl] = args; break;
 		default:
-			throw new Error('bad args');
+			throw new Error("bad args");
 	}
 	step = Math.abs(step) * Math.sign(end - i);
 	if (i < end) {
@@ -160,6 +160,7 @@ export function* count(...args) {
 		else      do yield i; while ((i += step) > end);
 	}
 }
+
 export function* chunk(a, n) {
 	let chunk = [];
 	for (const v of a) if (chunk.push(v) >= n) {

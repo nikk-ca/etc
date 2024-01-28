@@ -3,64 +3,15 @@
 	"version": "1.0.0",
 	"type": "module",
 	"devDependencies": {
-		"ava": "^4.3.1",
-		"eslint": "^8.11.0",
-		"eslint-plugin-unicorn": "^44.0.2"
+		"@eslint/js": "^8.56.0",
+		"@stylistic/eslint-plugin": "^1.5.4",
+		"ava": "^6.1.0",
+		"eslint": "^8.56.0",
+		"eslint-plugin-unicorn": "^50.0.1",
+		"globals": "^13.24.0"
 	},
 	"scripts": {
 		"test": "ava",
-		"fix": "eslint . --fix"
-	},
-	"eslintConfig": {
-		"env": {
-			"browser": true,
-			"es2021": true,
-			"node": true
-		},
-		"plugins": [
-			"unicorn"
-		],
-		"extends": [
-			"eslint:recommended"
-		],
-		"parserOptions": {
-			"ecmaVersion": "latest",
-			"sourceType": "module"
-		},
-		"rules": {
-			"eqeqeq": ["warn", "always", { "null": "ignore" }],
-			"no-lonely-if": "warn",
-			"brace-style": ["warn", "1tbs"],
-			"comma-dangle": ["warn", "always-multiline"],
-			"eol-last": ["warn", "always"],
-			"no-trailing-spaces": "warn",
-			"space-infix-ops": "warn",
-			"logical-assignment-operators": "warn",
-
-			"indent": ["warn", "tab"],
-			"linebreak-style": ["warn", "unix"],
-			"quotes": ["warn", "double"],
-			"semi": ["warn", "always"],
-
-			"unicorn/escape-case": "warn",
-			"unicorn/number-literal-case": "warn",
-			"unicorn/no-array-for-each": "warn",
-			"unicorn/no-instanceof-array": "warn",
-			"unicorn/no-zero-fractions": "warn",
-			"unicorn/no-useless-undefined": "warn",
-			"unicorn/no-useless-spread": "warn",
-			"unicorn/no-useless-promise-resolve-reject": "warn",
-			"unicorn/no-useless-length-check": "warn",
-			"unicorn/no-useless-fallback-in-spread": "warn",
-			"unicorn/no-unnecessary-await": "warn",
-			"unicorn/prefer-array-find": "warn",
-			"unicorn/prefer-array-index-of": "warn",
-			"unicorn/prefer-date-now": "warn",
-			"unicorn/prefer-ternary": "warn",
-			"unicorn/prefer-logical-operator-over-ternary": "warn",
-			"unicorn/prefer-switch": "warn",
-			"unicorn/prefer-native-coercion-functions": "warn",
-			"unicorn/prefer-prototype-methods": "warn"
-		}
+		"lint": "eslint ."
 	}
 }
