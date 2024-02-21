@@ -76,7 +76,6 @@ export const randi = (a = 1, b = 0) => Math.floor(Math.random() * (b - a) + a);
 export const randof = (a) => a[Math.floor(Math.random() * a.length)];
 export const randn = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(PI2 * Math.random());
 
-export const last = (a) => a[a.length - 1];
 
 export const fill = (n, f, c = Array) => {
 	const a = new c(n);
