@@ -15,12 +15,12 @@ test("chunk", t => {
 test("rotl", t => {
 	t.is(_.rotl(0xFFFFFFFF, 0), 0xFFFFFFFF);
 	t.is(_.rotl(0x12345678, 12), 0x45678123);
-	t.is(_.rotl(0b00010001000100010001000100010001, 1), 0b10001000100010001000100010001000);
+	t.is(_.rotl(0b00010001000100010001000100010001, 1), 0b00100010001000100010001000100010);
 });
 test("rotr", t => {
 	t.is(_.rotr(0xFFFFFFFF, 0), 0xFFFFFFFF);
 	t.is(_.rotr(0x12345678, 12), 0x67812345);
-	t.is(_.rotr(0b00010001000100010001000100010001, 1), 0b00100010001000100010001000100010);
+	t.is(_.rotr(0b00010001000100010001000100010001, 1), 0b10001000100010001000100010001000);
 });
 test("popcnt", t => {
 	t.is(_.popcnt(0), 0);
@@ -72,15 +72,14 @@ test("u2b", t => {
 	t.is(_.u2b(1), 1);
 });
 
-test("minBy", t => {
-	t.deepEqual(
-		_.minBy([{ x: 2 }, { x: 1 }, { x: 3 }], o => o.x),
-		{ x: 1 },
-	);
+test("selectBy", t => {
+	t.is(_.selectBy([1, 2, 3, 4, 5, 6, 7, 8], x => x % 6, (a, b) => a > b), 5);
 });
-test("maxBy", t => {
-	t.deepEqual(
-		_.maxBy([{ x: 2 }, { x: 1 }, { x: 3 }], o => o.x),
-		{ x: 3 },
-	);
+
+test("count", t => {
+	t.deepEqual([..._.count(5)], [0, 1, 2, 3, 4]);
+	t.deepEqual([..._.count(5, true)], [0, 1, 2, 3, 4, 5]);
+	t.deepEqual([..._.count(-2)], [0, -1]);
+	t.deepEqual([..._.count(-4, -2, true)], [-4, -3, -2]);
+	t.deepEqual([..._.count(0, 4, -0.5, true)], [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]);
 });

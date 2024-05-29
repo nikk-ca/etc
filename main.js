@@ -26,14 +26,22 @@ export const popcnt = x => (
 
 /** Approximately equal. */
 export const aeq = (a, b) => typeof a === "number" && typeof b === "number" && Math.abs(a - b) <= EPS;
+
 export const inRange = (x, min, max) => x >= min && x < max;
+export const clamp = (x, min, max) => x < min ? min : x > max ? max : x;
 
 export const fsdma = (f, x, m = 1, a = 0) => f((x - a) / m) * m + a;
 
-export const clamp = (x, min, max) => x < min ? min : x > max ? max : x;
+/** Maps `x` from [0, 1] to [a, b]. */
 export const lerp = (a, b, x) => x * (b - a) + a;
+
+/** Maps `x` from [a, b] to [0, 1]. */
 export const unlerp = (a, b, x) => (x - a) / (b - a);
+
+/** Maps `x` from [a, b] to [c, d]. */
 export const nmap = (a, b, c, d, x) => (x - a) * ((d - c) / (b - a)) + c;
+
+/** The modulo operator. */
 export const mod = (x, m) => (x % m + m) % m;
 export const fract = (x) => x - Math.floor(x);
 export const smoothstep = (x) => x * x * (3 - 2 * x);
@@ -46,7 +54,10 @@ export const floor = fsdma.bind(null, Math.floor);
 export const round = fsdma.bind(null, Math.round);
 export const ceil = fsdma.bind(null, Math.ceil);
 
+/** Maps `x` from [-1, 1] to [0, 1]. */
 export const b2u = (x) => x * 0.5 + 0.5;
+
+/** Maps `x` from [0, 1] to [-1, 1]. */
 export const u2b = (x) => x * 2 - 1;
 
 export const cot = (x) => 1 / Math.tan(x);
@@ -59,29 +70,40 @@ export const isObject = v => v && typeof v === "object";
 /** True if `v` is a number and isn't `NaN`. */
 export const isNumber = v => typeof v === "number" && !Number.isNaN(v);
 
-export const id = () => {
-	let str = "";
-	while (str.length < 8) str += CHAR64[Math.random() * 64 | 0];
-	return str;
-};
 export const hash = (str) => {
 	let hash = 0;
 	for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i) >>> 0;
 	return hash;
 };
 
+export const gcd = (a, b) => {
+	while (b !== 0) [a, b] = [b, a % b];
+	return b;
+};
+
+
+// Random ================================================================
+
 export const chance = (p = 0.5) => Math.random() < p;
 export const rand = (a = 1, b = 0) => Math.random() * (b - a) + a;
 export const randi = (a = 1, b = 0) => Math.floor(Math.random() * (b - a) + a);
 export const randof = (a) => a[Math.floor(Math.random() * a.length)];
 export const randn = () => Math.sqrt(-2 * Math.log(1 - Math.random())) * Math.cos(PI2 * Math.random());
+export const id = () => {
+	let str = "";
+	while (str.length < 8) str += randof(CHAR64);
+	return str;
+};
 
+
+// Array ================================================================
 
 export const fill = (n, f, c = Array) => {
 	const a = new c(n);
 	for (let i = 0; i < n; i++) a[i] = f(i, n);
 	return a;
 };
+
 export const swap = (a, i, j) => {
 	const v = a[i];
 	a[i] = a[j];
@@ -108,31 +130,19 @@ export const mapTo = (a, b, f) => {
 	return b;
 };
 
-export const minBy = (a, f) => {
-	let m = Infinity;
-	let v;
-	for (const x of a) {
-		const n = f(x);
-		if (n < m) m = n, v = x;
-	}
-	return v;
-};
-export const maxBy = (a, f) => {
-	let m = -Infinity;
-	let v;
-	for (const x of a) {
-		const n = f(x);
-		if (n > m) m = n, v = x;
-	}
-	return v;
-};
 
-export const timeout = (t) => new Promise(r => setTimeout(r, t));
+// Iterable ================================================================
 
-export const assert = (t, msg) => {
-	if (!t) throw new Error(msg);
+export const selectBy = (iter, map, sel) => {
+	iter = iter[Symbol.iterator]();
+	let a = iter.next().value;
+	let x = map(a);
+	for (const b of iter) {
+		const y = map(b);
+		if (sel(y, x)) a = b, x = y;
+	}
+	return a;
 };
-export const xor = (a, b) => a ? !b : !!b;
 
 export function* count(...args) {
 	let i = 0, end, step = 1, incl = false;
@@ -168,6 +178,23 @@ export function* chunk(a, n) {
 	}
 	if (chunk.length) yield chunk;
 }
-export function* map(a, f) {
-	for (const v of a) yield f(v);
+
+export const timeout = (t, ...args) => new Promise(r => setTimeout(r, t, ...args));
+
+/** Throws an error with `msg`. For use where a throw statement can't be used. */
+export const err = (msg) => {
+	throw new Error(msg);
+};
+export const assert = (t, msg) => {
+	if (!t) throw new Error(msg);
+};
+export const xor = (a, b) => a ? !b : !!b;
+
+export function interp(a, x, f = identity) {
+	let i = Math.floor(x);
+	const t = x - i;
+	i = mod(i, a.length);
+	const j = (i + 1) % a.length;
+
+	return lerp(a[i], a[j], f(t));
 }
